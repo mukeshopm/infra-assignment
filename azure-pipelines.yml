@@ -1,6 +1,6 @@
 trigger: none
 pool: 
- name: Default
+  name: Default
 steps:
   - 
 - task: TerraformInstaller@1
