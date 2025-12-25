@@ -9,39 +9,39 @@ steps:
   inputs:
     terraformVersion: 'latest'
 
-# - task: TerraformTaskV4@4
-#   displayName: Terraform Init
-#   inputs:
-#     provider: 'azurerm'
-#     command: 'init'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/env/dev'
-#     backendServiceArm: 'projectwali service connection'
-#     backendAzureRmResourceGroupName: 'rgwalifeeing'
-#     backendAzureRmStorageAccountName: 'storagemukesh15485'
-#     backendAzureRmContainerName: 'container'
-#     backendAzureRmKey: 'terraform.tfstate'
+- task: TerraformTaskV4@4
+  displayName: Terraform Init
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/env/dev'
+    backendServiceArm: 'projectwali service connection'
+    backendAzureRmResourceGroupName: 'rgwalifeeing'
+    backendAzureRmStorageAccountName: 'storagemukesh15485'
+    backendAzureRmContainerName: 'container'
+    backendAzureRmKey: 'terraform.tfstate'
 
-# - task: TerraformTaskV4@4
-#   displayName: Terraform Validate
-#   inputs:
-#     provider: 'azurerm'
-#     command: 'validate'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
+- task: TerraformTaskV4@4
+  displayName: Terraform Validate
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
 
-# - task: TerraformTaskV4@4
-#   displayName: Terraform Plan
-#   inputs:
-#     provider: 'azurerm'
-#     command: 'plan'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
-#     environmentServiceNameAzureRM: '
-# projectwali service connection'
+- task: TerraformTaskV4@4
+  displayName: Terraform Plan
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
+    environmentServiceNameAzureRM: '
+projectwali service connection'
 
-# - task: TerraformTaskV4@4
-#   displayName: Terraform Apply
-#   inputs:
-#     provider: 'azurerm'
-#     command: 'apply'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
-#     environmentServiceNameAzureRM: 'projectwali service connection'
-#     args: '-auto-approve'
+- task: TerraformTaskV4@4
+  displayName: Terraform Apply
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
+    environmentServiceNameAzureRM: 'projectwali service connection'
+    args: '-auto-approve'
