@@ -9,7 +9,7 @@ steps:
   inputs:
     terraformVersion: 'latest'
 
-- task: TerraformTaskV4@4
+- task: TerraformTaskV4@2
   displayName: Terraform init
   inputs:
     provider: 'azurerm'
@@ -21,7 +21,7 @@ steps:
     backendAzureRmContainerName: 'container'
     backendAzureRmKey: 'terraform.tfestate'
 
-- task: TerraformTaskV4@4
+- task: TerraformTaskV4@3
   displayName: Terraform Validate
   inputs:
     provider: 'azurerm'
@@ -37,7 +37,7 @@ steps:
     environmentServiceNameAzureRM: '
 projectwali service connection'
 
-- task: TerraformTaskV4@4
+- task: TerraformTaskV4@5
   displayName: Terraform Apply
   inputs:
     provider: 'azurerm'
