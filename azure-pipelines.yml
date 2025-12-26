@@ -10,10 +10,10 @@ steps:
     terraformVersion: 'latest'
 
 - task: TerraformTaskV4@4
-  displayName: Terraform Init
+  displayName: Terraform init
   inputs:
     provider: 'azurerm'
-    command: 'init'
+    command: 'terraform init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/env/dev'
     backendServiceArm: 'projectwali service connection'
     backendAzureRmResourceGroupName: 'rgwalifeeing'
