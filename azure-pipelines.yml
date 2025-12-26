@@ -1,61 +1,47 @@
 trigger: none
 
-pool:
-  vmImage: 'windows-latest'
+pool: Default
 
 steps:
-# 1️⃣ Checkout
-- checkout: self
-  displayName: "Checkout Repo"
 
-# 2️⃣ Debug – folder confirm
-- script: |
-    echo "ROOT"
-    dir
-    echo "DEFAULT FOLDER"
-    dir Default
-  displayName: "Check Folder Structure"
-
-# 3️⃣ Install Terraform
 - task: TerraformInstaller@1
-  displayName: "Install Terraform"
+  displayName: Install Terraform
   inputs:
     terraformVersion: 'latest'
 
-# 4️⃣ Terraform Init
 - task: TerraformTaskV4@4
-  displayName: "Terraform Init"
+  displayName: Terraform Init
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
-    environmentServiceNameAzureRM: 'projectwali service connection'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/env/dev'
+    backendServiceArm: 'projectwali service connection'
+    backendAzureRmResourceGroupName: 'rgwalifeeing'
+    backendAzureRmStorageAccountName: 'storagemukesh15485'
+    backendAzureRmContainerName: 'container'
+    backendAzureRmKey: 'terraform.tfstate'
 
-# 5️⃣ Terraform Validate
 - task: TerraformTaskV4@4
-  displayName: "Terraform Validate"
+  displayName: Terraform Validate
   inputs:
     provider: 'azurerm'
     command: 'validate'
     workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
-    environmentServiceNameAzureRM: 'projectwali service connection'
 
-# 6️⃣ Terraform Plan
 - task: TerraformTaskV4@4
-  displayName: "Terraform Plan"
+  displayName: Terraform Plan
   inputs:
     provider: 'azurerm'
     command: 'plan'
     workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
-    environmentServiceNameAzureRM: 'projectwali service connection'
+    environmentServiceNameAzureRM: '
+projectwali service connection'
 
-# 7️⃣ Terraform Apply (Manual only)
 - task: TerraformTaskV4@4
-  displayName: "Terraform Apply"
-  condition: and(succeeded(), eq(variables['Build.Reason'], 'Manual'))
+  displayName: Terraform Apply
   inputs:
     provider: 'azurerm'
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
     environmentServiceNameAzureRM: 'projectwali service connection'
-    commandOptions: '-auto-approve'
+    args: '-auto-approve'
