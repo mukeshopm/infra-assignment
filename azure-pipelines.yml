@@ -19,7 +19,7 @@ steps:
     backendAzureRmResourceGroupName: 'rgwalifeeing'
     backendAzureRmStorageAccountName: 'storagemukesh15485'
     backendAzureRmContainerName: 'container'
-    backendAzureRmKey: 'terraform.tfstate'
+    backendAzureRmKey: 'terraform.tfestate'
 
 - task: TerraformTaskV4@4
   displayName: Terraform Validate
