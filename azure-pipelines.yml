@@ -1,47 +1,50 @@
-trigger: none
+trigger:
+- main
 
-pool: Default
+pool:
+  vmImage:'ubuntu-latest'
+- task: AzureRmWebAppDeployment@1
+  inputs:
+    ConnectionType: 'AzureRM'
+    appType: 'webApp'
+    WebAppName: 
+    deployToSlotOrASE: true
+    SlotName: 'production'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
 steps:
 
 - task: TerraformInstaller@1
-  displayName: Install Terraform
   inputs:
     terraformVersion: 'latest'
 
 - task: TerraformTaskV4@4
-  displayName: Terraform Init
+  displayName: 'Terraform Init'
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/env/dev'
-    backendServiceArm: 'projectwali service connection'
-    backendAzureRmResourceGroupName: 'rgwalifeeing'
-    backendAzureRmStorageAccountName: 'storagemukesh15485'
-    backendAzureRmContainerName: 'container'
+    backendServiceArm: 'Azure-ServiceConnection'
+    backendAzureRmResourceGroupName: 'rg-tfstate'
+    backendAzureRmStorageAccountName: 'stterraformstate'
+    backendAzureRmContainerName: 'tfstate'
     backendAzureRmKey: 'terraform.tfstate'
 
 - task: TerraformTaskV4@4
-  displayName: Terraform Validate
+  displayName: 'Terraform Validate'
   inputs:
     provider: 'azurerm'
     command: 'validate'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
 
 - task: TerraformTaskV4@4
-  displayName: Terraform Plan
+  displayName: 'Terraform Plan'
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
-    environmentServiceNameAzureRM: '
-projectwali service connection'
+    environmentServiceNameAzureRM: 'Azure-ServiceConnection'
 
 - task: TerraformTaskV4@4
-  displayName: Terraform Apply
+  displayName: 'Terraform Apply'
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Default'
-    environmentServiceNameAzureRM: 'projectwali service connection'
-    args: '-auto-approve'
+    environmentServiceNameAzureRM: 'Azure-ServiceConnection'
